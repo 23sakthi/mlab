@@ -1,0 +1,29 @@
+from lxml import etree
+
+# Load and parse the XML and DTD files
+with open('yourfile.xml', 'rb') as xml_file, open('yourfile.dtd', 'rb') as dtd_file:
+    xml = etree.XML(xml_file.read())
+    dtd = etree.DTD(dtd_file)
+
+# Validate the XML against the DTD
+if dtd.validate(xml):
+    print("XML is valid according to the DTD")
+else:
+    print("XML is invalid:")
+    print(dtd.error_log.filter_from_errors())
+
+
+from lxml import etree
+
+# Load and parse the XML and XSD files
+with open('yourfile.xml', 'rb') as xml_file, open('yourfile.xsd', 'rb') as xsd_file:
+    xml = etree.XML(xml_file.read())
+    schema_root = etree.XML(xsd_file.read())
+    schema = etree.XMLSchema(schema_root)
+
+# Validate the XML against the XSD
+if schema.validate(xml):
+    print("XML is valid according to the XSD")
+else:
+    print("XML is invalid:")
+    print(schema.error_log.filter_from_errors())
